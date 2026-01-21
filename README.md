@@ -71,7 +71,7 @@ Acesse:
 
 O script roda com `0.0.0.0` (aceita conexões externas). Acesse via IP do servidor, por exemplo:
 
-* `http://192.168.4.145:5000/`
+* `http://192.168......:5000/`
 
 > **Importante:** liberar a porta no Firewall (veja abaixo).
 
