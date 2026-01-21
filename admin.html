@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Administrador</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo" src="assets/iconePlantao.png" alt="Logo" />
+        <div>
+          <h1>Administrator</h1>
+          <p class="subtitle">Gerenciar Plantão</p>
+        </div>
+      </div>
+
+      <a class="chip" href="index.html">Voltar ao Painel</a>
+    </header>
+
+    <main class="container">
+      <!-- LOGIN -->
+      <section id="loginCard" class="card">
+        <div class="card-head">
+          <h2>Acesso do administrador</h2>
+        </div>
+
+        <div class="grid">
+          <label class="field" style="grid-column: 1 / -1">
+            <span>Senha</span>
+            <input id="password" type="password" placeholder="Digite a senha" />
+          </label>
+        </div>
+
+        <div class="row end" style="margin-top: 12px">
+          <button id="loginBtn" class="btn" type="button">Entrar</button>
+        </div>
+
+        <div id="saveStatus" class="muted small" style="margin-top: 10px"></div>
+      </section>
+
+      <!-- ADMIN -->
+      <section id="adminCard" class="card hidden print-scope">
+        <div class="card-head">
+          <h2>Planejamento Mensal</h2>
+          <div class="row">
+            <button id="printBtn" class="btn btn-secondary" type="button">
+              Imprimir
+            </button>
+
+            <button id="exportBtn" class="btn btn-secondary" type="button">
+              Exportar JSON
+            </button>
+
+            <label class="btn btn-secondary" style="cursor: pointer">
+              Importar JSON
+              <input
+                id="importFile"
+                type="file"
+                accept="application/json"
+                style="display: none"
+              />
+            </label>
+
+            <button id="resetBtn" class="btn btn-danger" type="button">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="row row-bottom" style="gap: 14px">
+          <label class="field" style="min-width: 180px">
+            <span>Mês</span>
+            <select id="monthSelect" class="select">
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+          </label>
+
+          <label class="field" style="min-width: 160px">
+            <span>Ano</span>
+            <input
+              id="yearInput"
+              class="inline-input"
+              type="number"
+              min="2000"
+              max="2100"
+              value="2026"
+            />
+          </label>
+
+          <button id="applyMonthBtn" class="btn btn-secondary" type="button">
+            Aplicar
+          </button>
+
+          <div style="flex: 1"></div>
+
+          <button id="clearGridBtn" class="btn btn-secondary" type="button">
+            Limpar Escala
+          </button>
+        </div>
+
+        <hr class="sep" />
+
+        <div class="row" style="justify-content: space-between">
+          <button id="openAddColabBtn" class="btn" type="button">
+            + Adicionar colaborador
+          </button>
+
+          <div class="muted small" style="text-align: right; line-height: 1.25">
+            <strong>Montar escala:</strong> clique na célula para
+            marcar/desmarcar X.<br />
+            <strong>Definir horário:</strong> dê
+            <strong>duplo clique</strong> no X para editar (Início/Fim) ou
+            remover.
+          </div>
+        </div>
+
+        <div class="calendar-grid" style="margin-top: 12px">
+          <div id="calendarGrid"></div>
+        </div>
+
+        <div class="row end" style="margin-top: 14px">
+          <button id="saveBtn" class="btn" type="button">Salvar</button>
+        </div>
+
+        <div id="adminInfo" class="muted small" style="margin-top: 10px"></div>
+      </section>
+    </main>
+
+    <!-- MODAL: COLABORADOR -->
+    <dialog id="colabDialog" class="dialog">
+      <form id="colabForm" method="dialog">
+        <div class="dialog-body">
+          <h3 id="colabDialogTitle">Adicionar colaborador</h3>
+
+          <input id="colabId" type="hidden" />
+
+          <div class="grid">
+            <label class="field" style="grid-column: 1 / -1">
+              <span>Nome</span>
+              <input id="colabNome" type="text" autocomplete="off" />
+            </label>
+
+            <label class="field">
+              <span>WhatsApp</span>
+              <input
+                id="colabWhats"
+                type="text"
+                placeholder="Ex.: (61) 99999-4211"
+              />
+            </label>
+
+            <label class="field">
+              <span>Telefone</span>
+              <input id="colabTel" type="text" />
+            </label>
+
+            <label class="field" style="grid-column: 1 / -1">
+              <span>E-mail</span>
+              <input
+                id="colabEmail"
+                type="email"
+                placeholder="Ex.: nome@disdal.com.br"
+              />
+            </label>
+
+            <label class="field" style="grid-column: 1 / -1">
+              <span>Observações (opcional)</span>
+              <textarea
+                id="colabObs"
+                rows="4"
+                placeholder="Ex.: Plantão noite / Preferência domingos"
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="dialog-actions">
+            <button id="cancelColabBtn" class="btn btn-secondary" type="button">
+              Cancelar
+            </button>
+            <button class="btn" type="submit">Salvar colaborador</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- MODAL: HORÁRIO POR DIA (ÚNICO - sem duplicar IDs) -->
+    <dialog id="timeDialog" class="dialog">
+      <div class="dialog-body">
+        <h3 id="timeDialogTitle">Definir horário</h3>
+
+        <p class="muted small" style="margin-top: 6px">
+          Colaborador: <strong id="timeColabName">—</strong> • Dia:
+          <strong id="timeDayLabel">—</strong>
+        </p>
+
+        <!-- hidden: quem e qual dia -->
+        <input id="timeDay" type="hidden" />
+        <input id="timeColabId" type="hidden" />
+
+        <div class="grid" style="margin-top: 12px">
+          <label class="field">
+            <span>Horário de Início</span>
+            <input id="timeInicio" type="time" />
+          </label>
+
+          <label class="field">
+            <span>Horário de Fim</span>
+            <input id="timeFim" type="time" />
+          </label>
+        </div>
+
+        <div class="dialog-actions">
+          <button id="timeCancelBtn" class="btn btn-secondary" type="button">
+            Cancelar
+          </button>
+
+          <button
+            id="timeRemoveTimeBtn"
+            class="btn btn-secondary"
+            type="button"
+            title="Remove apenas o horário, mantém o X"
+          >
+            Remover horário
+          </button>
+
+          <button
+            id="timeRemoveMarkBtn"
+            class="btn btn-danger"
+            type="button"
+            title="Remove o X e também o horário"
+          >
+            Remover marcação
+          </button>
+
+          <button id="timeSaveBtn" class="btn" type="button">
+            Salvar horário
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      window.__PLANTAO_API_BASE__ = "";
+    </script>
+
+    <script type="module" src="js/admin.js"></script>
+  </body>
+</html>

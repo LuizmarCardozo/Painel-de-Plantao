@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Painel de Plantão</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo" src="assets/iconePlantao.png" alt="Logo" />
+        <div>
+          <h1>Painel de Plantão</h1>
+          <p class="subtitle">Visualização dos colaboradores</p>
+        </div>
+      </div>
+
+      <a class="chip" href="admin.html" title="Abrir painel administrador"
+        >Administrador</a
+      >
+    </header>
+
+    <main class="container">
+      <section class="card user-hero">
+        <div class="card-head">
+          <h2>Responsável agora</h2>
+          <button id="refreshBtn" class="btn btn-secondary" type="button">
+            Atualizar
+          </button>
+        </div>
+
+        <div class="hero-body">
+          <div id="responsavel" class="names"></div>
+
+          <!-- Aviso período de deslocamento -->
+          <div class="notice">
+            <div class="notice-title">Horario de Atendimento</div>
+            <div class="notice-text">
+              SEG A SEX 19h às 07h | SAB E DOM 07h às 19h
+            </div>
+          </div>
+
+          <div class="help-box">
+            <div class="help-title">Em que vamos te ajudar?</div>
+            <ul class="help-list">
+              <li>Suporte em equipamentos.</li>
+              <li>Manutenção e acompanhamento de softwares.</li>
+              <li>Serviços de integração e sincronização.</li>
+              <li>Serviços de infraestrutura de rede.</li>
+            </ul>
+          </div>
+
+          <!-- NOVO: Apoio (Pedro) -->
+          <div class="support-bar">
+            <div class="support-text">
+              <strong>Se nenhum colaborador do plantão atender!!!</strong>
+            </div>
+            <button id="openPedroBtn" class="btn btn-secondary" type="button">
+              Supervisor do Plantão
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <div class="hero-meta-row">
+              <span class="meta-label">Data</span>
+              <span id="periodo" class="meta-value">—</span>
+            </div>
+
+            <div class="hero-meta-row">
+              <span class="meta-label">Atualização</span>
+              <span id="updatedAt" class="meta-value">Carregando…</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Contatos</h2>
+        </div>
+
+        <div id="contatos" class="contacts-grid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>© Plantão LMR</small>
+    </footer>
+
+    <!-- MODAL PEDRO (APOIO) -->
+    <dialog id="pedroDialog" class="dialog">
+      <div class="dialog-body">
+        <h3>Apoio — Supervisor</h3>
+        <p class="muted small" style="margin-top: 6px">
+          Use este contato
+          <strong>caso nenhum colaborador do plantão atenda</strong>.
+        </p>
+
+        <div id="pedroBody" class="person-body" style="margin-top: 12px"></div>
+
+        <div class="dialog-actions">
+          <button id="closePedroBtn" class="btn btn-secondary" type="button">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </dialog>
+
+    <script>
+      // mesma origem (recomendado)
+      window.__PLANTAO_API_BASE__ = "";
+    </script>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
